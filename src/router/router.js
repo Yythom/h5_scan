@@ -2,7 +2,7 @@
 
 import Home from '../pages/Home/Home'
 import Test from '../pages/test/index'
-import Register from '../pages/User/Register'
+
 let router = () => {
     return {
         index: {
@@ -19,13 +19,6 @@ let router = () => {
             desc: '主页',
             page: Home
         },
-        Register: {
-            url: '/Register',
-            // icon: icon.Register,
-            // activeIcon: icon.Active.Register,
-            desc: '注册',
-            page: Register
-        }
     }
 }
-export default router()
+export default router();

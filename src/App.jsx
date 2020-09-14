@@ -5,10 +5,11 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 
 
 //路由
-import router from './router/router'
+// import router from './router/router'
 
-//公共组件
-import TabBar from './component/TabBar'
+//布局组件
+import BaseLayout from './component/layout/BaseLayout'
+
 
 //组件
 import Login from './pages/User/Login'
@@ -19,20 +20,13 @@ function _App(props) {
         <>
             <Router>
                 <Switch>
-                    <Route path='/' exact component={Login}></Route>
-                    <Route path='/register' exact component={Register}></Route>
-                    {
-                        // 路由tab栏
-                        Object.values(router).map(e => {
-                            return (
-                                <Route path={e.url} exact component={e.page} key={e.url} />
-                            )
-                        })
-                    }
+                    <Route path='/login' component={Login}></Route>
+                    <Route path='/register' component={Register}></Route>
+                    <Route path='/' component={BaseLayout} ></Route>
+
                     <Route path='/404' exact component={() => <h1>404</h1>}></Route>
                     <Redirect to="/404" />
                 </Switch>
-                <TabBar />
             </Router>
         </>
     )

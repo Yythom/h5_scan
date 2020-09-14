@@ -1,81 +1,68 @@
 import axios from 'axios'
-// import { getToken } from './tokenUtil'
-// import { message } from 'antd';  
+import { message } from 'antd';
+import { baseURL, timeout } from './config'
+
+let pending = []; //声明一个数组用于存储每个请求的取消函数和axios标识
+// let cancelToken = axios.CancelToken;
+let removePending = (config) => {
+    // console.log(config);
+    for (let i in pending) {
+        if (pending[i].url === axios.defaults.baseURL + config.url) { //在当前请求在数组中存在时执行取消函数
+            console.log('取消————————————————————-')
+            pending[i].f(); //执行取消操作
+            //pending.splice(i, 1); 根据具体情况决定是否在这里就把pending去掉
+            console.log(pending[i].url);
+        }
+    }
+}
 
 export function request(config) {
     const instance = axios.create({
-        baseURL: '/',
-        timeout: 5000
+        baseURL,
+        timeout,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        }
     })
 
-    //! 直接全局拦截，把数据过滤一下
+    //! 数据过滤
     instance.interceptors.response.use(res => {
-
-
-        //统一处理错误
-        // if (status !== 200 && status !== 201 && status2 !== 200) {
-        //     message.error('出错了，' + res.data.meta.msg)
-        //     console.log(res);
-
-        // }      
         return res.data
     })
 
-    //!拦截请求m
+    //请求拦截
     instance.interceptors.request.use(function (res) {
-        // console.log('请求信息',res);
-        //1.获取token
-        // var token = localStorage.getItem('token') || ''
-        // //2.判断 
-        // if (token) {
-        //     //设置请求头（后期请求接口 http请求头携带Authorization参数）
+        removePending(config); //在一个axios发送前执行一下判定操作，在removePending中执行取消操作
+        /**
+         * @addToken
+         */
+        // if (res.params) {
+        //     if (!res.params.userSession) {
+        //         let userSession = sessionStorage.getItem('token')
+        //         if (userSession === " ") userSession = sessionStorage.getItem('token')
+        //         res.params.userSession = userSession;
+        //     }
+        // } else if (!res.params) {
+        //     res.params = { userSession: sessionStorage.getItem('token') }
         // }
-        // let token = getToken();
-        // res.headers['Authorization'] = token
+
         return res
     }, function (error) {
-        // Do something with request error
         return Promise.reject(error)
     })
 
-    // 返回的就是promise 对象，在调用的时候可以直接使用
-    return instance(config);
-}
+    // 此处封装一层捕捉错误
+    return new Promise((resolve, reject) => {
+        instance(config).then(res => {
+            resolve(res)
+        }).catch(err => {
+            /**
+             * @err
+             */
+            if (err.response) {
 
-
-//当地天气请求
-export function requestWeather(config) {
-    const instance = axios.create({
-        baseURL: 'https://www.tianqiapi.com/free/day?appid=29147921&appsecret=ch6HicCE',
-        timeout: 5000
+            }
+        })
     })
-    //! 直接全局拦截，把数据过滤一下
-    instance.interceptors.response.use(res => {
-        // if(res.data.meta.status != 200){
-        //     message.error('出错了，请重试')
-        // }
-        return res
-    })
-    return instance(config);
 }
-
-
-
-//使用
-// import { request } from './request'
-
-// export const POST =(data)=>{
-//     return request({
-//         url:'login',
-//         method:'post',
-//         data
-//     })
-// }
-
-//get
-// export const GET = params => {
-//     return request({
-//         url: `orders`,
-//         params
-//     })
-// }
+export default request;
