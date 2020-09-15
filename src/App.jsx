@@ -20,8 +20,6 @@ import VConsole from 'vconsole';
 function _App(props) {
     function IsPC() {
         var userAgentInfo = navigator.userAgent;
-        console.log(userAgentInfo);
-
         var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
         var flag = true;
         for (var v = 0; v < Agents.length; v++) {
@@ -30,13 +28,11 @@ function _App(props) {
                 break;
             }
         }
-        return flag;
+        return flag; // true:pc  false:mobile
     }
 
 
     useEffect(() => {
-
-        console.log(IsPC());
         if (!IsPC()) {
             new VConsole()
         }
