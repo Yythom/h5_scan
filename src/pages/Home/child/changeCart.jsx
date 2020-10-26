@@ -1,11 +1,11 @@
 import React from 'react'
 import { mapStateToProps, mapDispatchToProps } from '../../redux/actionCreator'
 import { connect } from 'react-redux'
-function ComponentName(props) {
+function ScanAccount(props) {
     return (
         <div>
-            这是一个测试组件
+            扫码订单
         </div>
     )
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ComponentName)
+export default connect(mapStateToProps, mapDispatchToProps)(ScanAccount)

@@ -1,3 +1,16 @@
 // * {
-    //     background-color: #000;
-    // }
+//     background-color: #000;
+// }
+.tabBox {
+    list-style: none;
+    position: fixed;
+    bottom: 0;
+
+    ul {
+        display: flex;
+
+        li {
+            margin-right: 10px;
+        }
+    }
+}

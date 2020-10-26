@@ -9,17 +9,17 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 
 //布局组件
 import BaseLayout from './component/layout/BaseLayout'
+import Home from './pages/Home/Home'
+import ScanAccount from './pages/scanAccount/ScanAccount'
+import Table from './pages/table/Table'
 
-
-//组件
-import Login from './pages/User/Login'
-import Register from './pages/User/Register'
 import { useEffect } from 'react'
 import VConsole from 'vconsole';
 
 function _App(props) {
     function IsPC() {
         var userAgentInfo = navigator.userAgent;
+        console.log(userAgentInfo);
         var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
         var flag = true;
         for (var v = 0; v < Agents.length; v++) {
@@ -34,7 +34,8 @@ function _App(props) {
 
     useEffect(() => {
         if (!IsPC()) {
-            new VConsole()
+            // new VConsole()
+            // console.clear()
         }
     }, [])
 
@@ -42,9 +43,11 @@ function _App(props) {
         <>
             <Router>
                 <Switch>
-                    <Route path='/login' component={Login}></Route>
-                    <Route path='/register' component={Register}></Route>
                     <Route path='/' component={BaseLayout} ></Route>
+                    <Route path='/home' exact component={Home} ></Route>
+                    <Route path='/table' exact component={Table} ></Route>
+                    <Route path='/scanAccount' exact component={ScanAccount} ></Route>
+
 
                     <Route path='/404' exact component={() => <h1>404</h1>}></Route>
                     <Redirect to="/404" />

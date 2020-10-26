@@ -5,9 +5,11 @@ import { connect } from 'react-redux'
 import { mapStateToProps, mapDispatchToProps } from '../redux/actionCreator'
 function TabBar(props) {
     let { tabStatus } = props
+    console.log(tabStatus);
     useEffect(() => {
         let path = props.location.pathname.split('/')[1]
         if (path === 'chat') props.activeTab(0)
+        // eslint-disable-next-line 
     }, [])
     return (
         <div className="tabBox">

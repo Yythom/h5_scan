@@ -1,11 +1,11 @@
 import React from 'react'
 import { mapStateToProps, mapDispatchToProps } from '../../redux/actionCreator'
 import { connect } from 'react-redux'
-function _Register(props) {
+function Table(props) {
     return (
         <div>
-            注册
+            桌详情
         </div>
     )
 }
-export default connect(mapStateToProps, mapDispatchToProps)(_Register)
+export default connect(mapStateToProps, mapDispatchToProps)(Table)

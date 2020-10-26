@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { message } from 'antd';
 import { baseURL, timeout } from './config'
 
 let pending = []; //声明一个数组用于存储每个请求的取消函数和axios标识
@@ -21,7 +20,8 @@ export function request(config) {
         baseURL,
         timeout,
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
+            'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDM3MTE0OTQsInN1YiI6bnVsbCwibmJmIjoxNjAzNzA0Mjk0LCJhdWQiOm51bGwsImlhdCI6MTYwMzcwNDI5NCwianRpIjoiYjQwZmRmZjk5MTUyMDY0Mjg3MTgyYWZlNWM4ZGU0YzQiLCJpc3MiOiJFYXN5U3dvb2xlIiwic3RhdHVzIjoxLCJkYXRhIjoie1widXNlcl9pZFwiOlwiMzkyMjc2NTAxMDExMjM4OTEyXCJ9In0.9aknjeGMfQt_jrX-VnK6GZciFJNHh9Ys9mLQaNevREw'
         }
     })
 

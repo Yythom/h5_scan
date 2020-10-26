@@ -1,15 +1,11 @@
 import React from 'react'
 import { mapStateToProps, mapDispatchToProps } from '../../redux/actionCreator'
 import { connect } from 'react-redux'
-function _Login(props) {
-    console.log(props);
-
+function ScanAccount(props) {
     return (
         <div>
-            登入----
+            扫码订单
         </div>
     )
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(_Login)
-
+export default connect(mapStateToProps, mapDispatchToProps)(ScanAccount)
