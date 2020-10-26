@@ -8,6 +8,7 @@ function Food(props) {
 
     return (
         <div className='food_item'>
+
             {
                 food ?
                     <>
@@ -31,7 +32,7 @@ function Food(props) {
                                         : <span className='new'>{food.sell_price}</span>
                                 }
                             </div>
-                            <InputCart food_item={food} shopid={shop_id} />
+                            <InputCart profit_name={profit_name} food_item={food} shopid={shop_id} />
                         </div>
                     </>
                     : null

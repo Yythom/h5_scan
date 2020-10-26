@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { mapStateToProps, mapDispatchToProps } from '../redux/actionCreator'
 function TabBar(props) {
     let { tabStatus } = props
-    console.log(tabStatus);
+    // console.log(tabStatus);
     useEffect(() => {
         let path = props.location.pathname.split('/')[1]
         if (path === 'chat') props.activeTab(0)
@@ -17,7 +17,7 @@ function TabBar(props) {
             // style={localStorage.getItem('token') ? { visibility: 'visible' } : { visibility: 'hidden' }}
             >
                 {
-                    Object.values(router).map((e, i) => {
+                    props.tabStatus && Object.values(router).map((e, i) => {
                         return (
                             <Link onClick={() => { props.activeTab(i) }} to={e.url} key={e.desc}>
                                 <li >

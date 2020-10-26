@@ -1,26 +1,37 @@
 let initState = {
     tabStatus: 1,
     cart: JSON.parse(localStorage.getItem('cart')) || {},
+    allCartComputer: {
+        num: null,
+        oldPrice: null,
+        memberPrice: null,
+        productList: []
+    },
 }
 
 
 export const reducer = (state = initState, action) => {
+    let states = JSON.parse(JSON.stringify(state))
     switch (action.type) {
         case "TAB":
             console.log(action.index);
-            state.tabStatus = action.index
-            return { ...state }
+            states.tabStatus = action.index
+            return states;
         case 'ADDCART':
             // console.log(action);
-            state.cart = cart(action.food, action.shop_id, action.current, state.cart);
-            localStorage.setItem('cart', JSON.stringify(state.cart))
-            console.log(state.cart);
-
+            states.cart = cart(action.food, action.shop_id, action.current, state.cart);
+            localStorage.setItem('cart', JSON.stringify(states.cart))
+            console.log(states.cart);
+            return states;
         case 'SETNUM':
-            state.cartNum = action.allNum;
-
+            states.cartSummary = action.allSummary;
+            return states;
+        case 'CLEAR':
+            states.cart = {};
+            states.cartSummary = initState.cartSummary;
+            return states;
         default:
-            return JSON.parse(JSON.stringify(state))
+            return states;
     }
 }
 

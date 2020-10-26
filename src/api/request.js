@@ -21,7 +21,7 @@ export function request(config) {
         timeout,
         headers: {
             'Content-Type': 'application/json',
-            'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDM3MTE0OTQsInN1YiI6bnVsbCwibmJmIjoxNjAzNzA0Mjk0LCJhdWQiOm51bGwsImlhdCI6MTYwMzcwNDI5NCwianRpIjoiYjQwZmRmZjk5MTUyMDY0Mjg3MTgyYWZlNWM4ZGU0YzQiLCJpc3MiOiJFYXN5U3dvb2xlIiwic3RhdHVzIjoxLCJkYXRhIjoie1widXNlcl9pZFwiOlwiMzkyMjc2NTAxMDExMjM4OTEyXCJ9In0.9aknjeGMfQt_jrX-VnK6GZciFJNHh9Ys9mLQaNevREw'
+            'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDM3Mjc4MjYsInN1YiI6bnVsbCwibmJmIjoxNjAzNzIwNjI2LCJhdWQiOm51bGwsImlhdCI6MTYwMzcyMDYyNiwianRpIjoiYjg2ZDRhMjdjZGM2ODEyY2MwMGM0MDg5ZDU4NjQwOGIiLCJpc3MiOiJFYXN5U3dvb2xlIiwic3RhdHVzIjoxLCJkYXRhIjoie1widXNlcl9pZFwiOlwiMzkyMjc2NTAxMDExMjM4OTEyXCJ9In0.3cF7HO_u4Jy-UAm9y5MZrwGaWD-b25hDctFWBB5yHYQ'
         }
     })
 

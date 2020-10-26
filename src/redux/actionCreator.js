@@ -5,7 +5,7 @@ export const mapStateToProps = (state, ownProps) => {
     return {
         tabStatus: state.tabStatus,//tab路由状态
         cart: state.cart,
-        cartNum: state.cartNum,
+        cartSummary: state.cartSummary,
     }
 }
 
@@ -17,8 +17,12 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
         addCart: (food, shop_id, current) => {
             dispatch({ type: 'ADDCART', food, shop_id, current })
         },
-        setAllNum: (allNum) => {
-            dispatch({ type: 'SETNUM', allNum })
+        setAllNum: (allSummary) => {
+            dispatch({ type: 'SETNUM', allSummary })
+        },
+        clearCart: () => {
+            localStorage.removeItem('cart');
+            dispatch({ type: 'CLEAR' })
         }
     }
 }

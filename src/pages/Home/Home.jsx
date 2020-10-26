@@ -21,7 +21,6 @@ function _Home() {
     }
     useEffect(() => {
         initFn();
-
         // getDetail().then(res => console.log(res)); // 商品详情
     }, [])
 
@@ -80,12 +79,12 @@ function _Home() {
                             })
                         }
                     </div>
-
+                    <Carbar shop_id={scan.shop_id} profit_name={scan.profit_name ? true : false} />
                 </>
             ) : null
 
             }
-            <Carbar />
+
         </div>
     )
 }
