@@ -55,7 +55,6 @@ function _Home() {
                         <Header />
                         <div className='tab'>
                             <ul>
-                                {/* <li onClick={() => { tabFn(1) }} style={tab === 1 ? { fontSize: '1.2rem', fontWeight: '600' } : { fontSize: '1rem' }}>全部分类</li> */}
                                 {p_list.category_list && p_list.category_list.map((cate) => {
                                     return (
                                         <li onClick={() => { tabFn(cate.category_id) }} key={cate.category_id + cate.category_name} style={tab == cate.category_id ? { fontSize: '1.2rem', fontWeight: '600' } : { fontSize: '1rem' }}>
