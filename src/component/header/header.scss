@@ -1,0 +1,52 @@
+.title {
+    position: relative;
+    width: 100%;
+    height: 27%;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #fff;
+
+    .cover {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -99;
+    }
+
+    .mask {
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(black, rgba(0, 0, 0, 0.25));
+        z-index: -98;
+        position: absolute;
+
+    }
+
+    .float_content {
+        position: absolute;
+        left: 4%;
+        top: 50%;
+        transform: translateY(-50%);
+
+        h2 {
+            font-weight: 600;
+            font-size: 2rem;
+        }
+
+        h3 {
+            font-size: 1rem;
+        }
+
+        p {
+            margin-top: 4px;
+            font-size: 0.8rem;
+            text-indent: -0.1rem;
+        }
+
+        svg {
+            vertical-align: bottom;
+            margin-right: 4px;
+        }
+    }
+}

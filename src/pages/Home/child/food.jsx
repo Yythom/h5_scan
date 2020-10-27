@@ -3,7 +3,7 @@ import { mapStateToProps, mapDispatchToProps } from '../../../redux/actionCreato
 import { connect } from 'react-redux'
 import InputCart from '../../../component/Cart_input'
 function Food(props) {
-    const { food, profit_name, shop_id, cart } = props
+    const { food, profit_name, shop_id } = props
 
 
     return (
@@ -24,12 +24,12 @@ function Food(props) {
                                             food.is_member === 1
                                                 ? <>
 
-                                                    <span className='new'>{food.member_price}</span>
-                                                    <span className='old'>{food.sell_price}</span>
+                                                    <span className='new'>¥{food.member_price}</span>
+                                                    <span className='old'>¥{food.sell_price}</span>
                                                 </>
                                                 : null
                                         )
-                                        : <span className='new'>{food.sell_price}</span>
+                                        : <span className='new'>¥{food.sell_price}</span>
                                 }
                             </div>
                             <InputCart profit_name={profit_name} food_item={food} shopid={shop_id} />
