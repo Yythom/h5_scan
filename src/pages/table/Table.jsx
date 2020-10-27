@@ -109,7 +109,7 @@ function Table(props) {
                             <span>
                                 {type === 1 ? '已取消订单' : null}   {type === 2 ? '未结算订单' : null}   {type === 1 ? '已完成订单' : null}   {type === 1 ? '支付失败' : null}   {type === 1 ? '已退款订单' : null}
                             </span>
-                            <i>{e.order.create_at}</i>
+                            <p>{e.order.create_at}</p>
                         </div>
                         <div className='p_content'>
                             {e.product.map((item) => {

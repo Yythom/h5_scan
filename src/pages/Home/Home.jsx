@@ -13,7 +13,7 @@ function _Home() {
     const [scan, setScan] = useState('');
     const [p_list, setPlist] = useState('');
     const [food_list, setFoodlist] = useState([]);
-    const [tab, setTab] = useState(1);
+    const [tab, setTab] = useState(0);
     const history = useHistory();
 
     async function req(s) {
@@ -83,13 +83,15 @@ function _Home() {
 
         // console.log(cate_id, init);
         let renderArr = []
-        if (cate_id || (init && Object.keys(init)[0])) {
+        if ((cate_id || cate_id === 0) || (init && Object.keys(init)[0])) {
             if (init) {
-                renderArr = init.product_list.filter(e => (e.cate_id == cate_id || cate_id == 1));
+                renderArr = init.product_list.filter(e => (e.cate_id == cate_id || cate_id == 0));
+                setTab(0);
             } else {
-                renderArr = p_list.product_list.filter(e => (e.cate_id == cate_id || cate_id == 1));
+                renderArr = p_list.product_list.filter(e => (e.cate_id == cate_id || cate_id == 0));
+                setTab(cate_id);
             }
-            setTab(cate_id);
+
             if (renderArr) {
                 console.log(renderArr);
 
@@ -110,7 +112,7 @@ function _Home() {
                         <Header scanDesc={scan} />
                         <div className='tab'>
                             <ul>
-                                <li onClick={() => { tabFn(1) }} style={tab == 1 ? { fontSize: '1.2rem', fontWeight: '600' } : { fontSize: '1rem' }}>
+                                <li onClick={() => { tabFn(0) }} style={tab == 0 ? { fontSize: '1.2rem', fontWeight: '600' } : { fontSize: '1rem' }}>
                                     全部分类
                                         </li>
                                 {p_list.category_list && p_list.category_list.map((cate) => {

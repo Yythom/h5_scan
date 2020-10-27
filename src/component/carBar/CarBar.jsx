@@ -42,13 +42,9 @@ function Carbar(props) {
         return ''
     }
     async function back() {
-        let lists = list();
-        if (lists) {
-            makeOrder(shop_id, lists, localStorage.getItem('table_id')).then(res => {
-                console.log(res, 'make');
-
-            })
-
+        if (cart[shop_id] && cart[shop_id].list[0]) {
+            let lists = list();
+            await makeOrder(shop_id, lists, localStorage.getItem('table_id'));
             setTimeout(() => {
                 props.clearCart()
                 history.push('/table');
