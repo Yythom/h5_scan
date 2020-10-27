@@ -19,17 +19,18 @@ function Food(props) {
                         <div className='price'>
                             <div>
                                 {
-                                    profit_name
-                                        ? (
-                                            food.is_member === 1
-                                                ? <>
+                                    // profit_name
+                                    //     ? (
+                                    //         food.is_member === 1
+                                    //             ? <>
 
-                                                    <span className='new'>¥{food.member_price}</span>
-                                                    <span className='old'>¥{food.sell_price}</span>
-                                                </>
-                                                : null
-                                        )
-                                        : <span className='new'>¥{food.sell_price}</span>
+                                    //                 <span className='new'>¥{food.member_price}</span>
+                                    //                 <span className='old'>¥{food.sell_price}</span>
+                                    //             </>
+                                    //             : null
+                                    //     )
+                                    //     : 
+                                    <span className='new'>¥{food.sell_price}</span>
                                 }
                             </div>
                             <InputCart profit_name={profit_name} food_item={food} shopid={shop_id} />

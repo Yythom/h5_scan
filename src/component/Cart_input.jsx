@@ -73,9 +73,9 @@ function Input(props) {
 
     return (
         <div className='cart_input_wrap'>
-            <sapn className="btn btn-plus" onClick={() => { cartFn(food_item, shopid, 'add') }}></sapn>
-            {num}
-            <sapn className="btn btn-minus" onClick={() => { cartFn(food_item, shopid, 'del') }}></sapn>
+            <i className="btn btn-plus" onClick={() => { cartFn(food_item, shopid, 'add') }}></i>
+            <span>{num}</span>
+            <i className="btn btn-minus" onClick={() => { cartFn(food_item, shopid, 'del') }}></i>
         </div>
     )
 }

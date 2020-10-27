@@ -13,13 +13,13 @@ let router = () => {
             desc: '主页',
             page: Home
         },
-        scanAccount: {
-            url: '/scanAccount',
-            // icon: icon.Home,
-            // activeIcon: icon.Active.Home,
-            desc: '扫码收银台',
-            page: ScanAccount
-        },
+        // scanAccount: {
+        //     url: '/scanAccount',
+        //     // icon: icon.Home,
+        //     // activeIcon: icon.Active.Home,
+        //     desc: '扫码收银台',
+        //     page: ScanAccount
+        // },
         table: {
             url: '/table',
             // icon: icon.Home,

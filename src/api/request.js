@@ -21,7 +21,7 @@ export function request(config) {
         timeout,
         headers: {
             'Content-Type': 'application/json',
-            'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDM3NzE4ODMsInN1YiI6bnVsbCwibmJmIjoxNjAzNzY0NjgzLCJhdWQiOm51bGwsImlhdCI6MTYwMzc2NDY4MywianRpIjoiODBmZmYzOGYyNWU0NjcyYjdmODFmY2M0MTRmODNmMjQiLCJpc3MiOiJFYXN5U3dvb2xlIiwic3RhdHVzIjoxLCJkYXRhIjoie1widXNlcl9pZFwiOlwiMzkyMjc2NTAxMDExMjM4OTEyXCJ9In0.ThNy2reD8u2Wv9tvtq7iy-toDmDolRYs7rOJMlUJuaU'
+            'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDM3ODc5NDMsInN1YiI6bnVsbCwibmJmIjoxNjAzNzgwNzQzLCJhdWQiOm51bGwsImlhdCI6MTYwMzc4MDc0MywianRpIjoiNWNhMWQ1YjgxMjFjYzJhODI5ODk2NTIyNTJiYjcxYTkiLCJpc3MiOiJFYXN5U3dvb2xlIiwic3RhdHVzIjoxLCJkYXRhIjoie1widXNlcl9pZFwiOlwiMzkyMjc2NTAxMDExMjM4OTEyXCJ9In0.8tbPBwyXcq4LK24w92M_azolFcFD-FPD0Z6bnJzv37Y'
         }
     })
 

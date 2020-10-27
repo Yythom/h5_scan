@@ -6,6 +6,21 @@
     overflow: hidden;
     color: #fff;
 
+    .add {
+        background-color: #F38219;
+        line-height: 1.5rem;
+        font-size: .9rem;
+        letter-spacing: .15rem;
+        text-align: center;
+        width: 4.5rem;
+        height: 1.5rem;
+        position: absolute;
+        right: 2rem;
+        top: 56%;
+        transform: translateY(-50%);
+        border-radius: 2rem
+    }
+
     .cover {
         position: absolute;
         top: 50%;
@@ -25,13 +40,13 @@
 
     .float_content {
         position: absolute;
-        left: 4%;
+        left: 1rem;
         top: 50%;
         transform: translateY(-50%);
 
         h2 {
             font-weight: 600;
-            font-size: 2rem;
+            font-size: 1.7rem;
         }
 
         h3 {
@@ -39,8 +54,8 @@
         }
 
         p {
-            margin-top: 4px;
-            font-size: 0.8rem;
+            margin-top: 0.35rem;
+            font-size: 0.6rem;
             text-indent: -0.1rem;
         }
 
