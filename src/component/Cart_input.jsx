@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { useState, useEffect } from 'react'
 import np from 'number-precision'
 
+import './Cart_input.scss'
+
 function Input(props) {
     const [num, setNum] = useState(0)
     let { food_item, addCart, shopid, profit_name } = props;
@@ -71,9 +73,9 @@ function Input(props) {
 
     return (
         <div className='cart_input_wrap'>
-            <button onClick={() => { cartFn(food_item, shopid, 'add') }}>+</button>
+            <sapn className="btn btn-plus" onClick={() => { cartFn(food_item, shopid, 'add') }}></sapn>
             {num}
-            <button onClick={() => { cartFn(food_item, shopid, 'del') }}>-</button>
+            <sapn className="btn btn-minus" onClick={() => { cartFn(food_item, shopid, 'del') }}></sapn>
         </div>
     )
 }
