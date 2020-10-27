@@ -8,14 +8,14 @@ import { getOrderDetailWithTableID } from '../../api/api'
 import np from 'number-precision'
 import './table.scss'
 function Table(props) {
-    const [table_id, setTable_id] = useState('');
+    // const [table_id, setTable_id] = useState('');
     const [order, setOrder] = useState('');
 
     const [noPay, setNoPay] = useState([]); // 待支付
-    const [donePay, setDonePay] = useState([]); //成功
-    const [cancelPay, setCancelNopay] = useState([]); // 取消
-    const [failPay, setFailNoPay] = useState([]); // 失败
-    const [quitPay, setQuitNoPay] = useState([]); // 退款
+    // const [donePay, setDonePay] = useState([]); //成功
+    // const [cancelPay, setCancelNopay] = useState([]); // 取消
+    // const [failPay, setFailNoPay] = useState([]); // 失败
+    // const [quitPay, setQuitNoPay] = useState([]); // 退款
     const [renderData, setData] = useState({})
     // 1 取消 2 待支付 3 成功 4 失败 5 退款
     // is_business 
@@ -30,7 +30,7 @@ function Table(props) {
 
     function init() {
         if (localStorage.getItem('table_id')) {
-            setTable_id(localStorage.getItem('table_id'));
+            // setTable_id(localStorage.getItem('table_id'));
             getOrderDetailWithTableID(localStorage.getItem('table_id')).then(res => {
                 if (res.code === '0') {
                     console.log(res, 'table _desc');
@@ -70,10 +70,10 @@ function Table(props) {
                     })
 
                     setNoPay(noArr);
-                    setDonePay(doneArr);
-                    setFailNoPay(failArr);
-                    setCancelNopay(cancelArr);
-                    setQuitNoPay(quitArr);
+                    // setDonePay(doneArr);
+                    // setFailNoPay(failArr);
+                    // setCancelNopay(cancelArr);
+                    // setQuitNoPay(quitArr);
                     setData(renderData)
                 }
                 setOrder(res.result);
@@ -145,6 +145,7 @@ function Table(props) {
 
     useEffect(() => {
         init();
+        // eslint-disable-next-line
     }, [])
     return (
         <div className="table_wrap">

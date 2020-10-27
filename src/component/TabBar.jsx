@@ -1,3 +1,4 @@
+// eslint-disable-next-line 
 import React, { useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom'
 import router from '../router/router'
@@ -6,11 +7,11 @@ import { mapStateToProps, mapDispatchToProps } from '../redux/actionCreator'
 function TabBar(props) {
     let { tabStatus } = props
     // console.log(tabStatus);
-    useEffect(() => {
-        let path = props.location.pathname.split('/')[1]
-        // if (path === 'chat') props.activeTab(0)
-        // eslint-disable-next-line 
-    }, [])
+    // useEffect(() => {
+    // let path = props.location.pathname.split('/')[1]
+    // if (path === 'chat') props.activeTab(0)
+    // eslint-disable-next-line 
+    // }, [])
     return (
         <div className="tabBox">
             <ul

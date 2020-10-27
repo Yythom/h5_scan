@@ -10,7 +10,7 @@ import { makeOrder } from '../../api/api'
 function Carbar(props) {
     const [show, setShow] = useState(false);
     const history = useHistory();
-    let { addCart, shop_id, cart, cartNum, cartSummary, profit_name } = props;
+    let { shop_id, cart, cartSummary, profit_name } = props;
     // shop_id, list, table_id = '', remark = '', order_id = []
 
     function list() {

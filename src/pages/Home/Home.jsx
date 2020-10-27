@@ -7,25 +7,71 @@ import Carbar from '../../component/carBar/CarBar';
 import Header from '../../component/header/header';
 import Food from './child/food';
 import './home.scss';
+import { useHistory } from 'react-router-dom';
 
 function _Home() {
-    const [scan, setScan] = useState('')
-    const [p_list, setPlist] = useState('')
-    const [food_list, setFoodlist] = useState([])
-    const [tab, setTab] = useState(1)
-    async function initFn() {
-        let scanRes = await getDetailByShortTable();
-        console.log(scanRes);
+    const [scan, setScan] = useState('');
+    const [p_list, setPlist] = useState('');
+    const [food_list, setFoodlist] = useState([]);
+    const [tab, setTab] = useState(1);
+    const history = useHistory();
+
+    async function req(s) {
+        let scanRes = await getDetailByShortTable(s); // 桌码短号获取详情
         if (scanRes.code === '0') {
-            setScan(scanRes.result)
+            localStorage.setItem('shortTable', JSON.stringify(scanRes.result))
+            setScan(scanRes.result);
+            let listRes = await getList(scanRes.result.shop_id)
+            if (listRes.code === '0') {
+                localStorage.setItem('pList', JSON.stringify(listRes.result))
+                setPlist(listRes.result);
+                tabFn(1, listRes.result);
+                return
+            }
+        }
+    }
+
+
+    async function initFn() {
+        let qr = (history.location.search.indexOf('s=') !== -1 && history.location.search.indexOf('t=') !== -1);
+        if (localStorage.getItem('again')) {
+            let s = localStorage.getItem('s');
+            req(s);
+            console.log('加菜刷新');
+
+        } else if (qr) {
+            let err = '';
+            try {
+                let params = `${history.location.search}`.replace('?', '');
+                // let t = `${params}`.split('&')[1].split('=')[1];
+                let s = `${`${params}`.split('&')[1]}`.split('=')[1]
+                let scanRes = await getDetailByShortTable(s); // 桌码短号获取详情
+                if (scanRes.code === '0') {
+                    localStorage.setItem('shortTable', JSON.stringify(scanRes.result))
+                    setScan(scanRes.result);
+                    let listRes = await getList(scanRes.result.shop_id)
+                    if (listRes.code === '0') {
+                        localStorage.setItem('pList', JSON.stringify(listRes.result))
+                        setPlist(listRes.result);
+                        tabFn(1, listRes.result);
+                        console.log('二维码读取');
+                        return
+                    }
+                }
+            } catch (error) {
+                err = error;
+                console.log(error);
+            }
+            tabFn(1, {}, err)
+        } else {
+            if (localStorage.getItem('shortTable') && localStorage.getItem('pList')) {
+                setPlist(JSON.parse(localStorage.getItem('pList')));
+                tabFn(1, JSON.parse(localStorage.getItem('pList')));
+                setScan(JSON.parse(localStorage.getItem('shortTable')));
+            }
+            console.log('本地读取');
         }
 
-        let listRes = await getList()
-        if (listRes.code === '0') {
-            setPlist(listRes.result);
-        }
-
-        tabFn(1, listRes.result)
     }
     useEffect(() => {
         initFn();
@@ -33,16 +79,25 @@ function _Home() {
         // eslint-disable-next-line 
     }, [])
 
-    const tabFn = (cate_id, init) => {
+    const tabFn = (cate_id, init, error) => {
+
+        // console.log(cate_id, init);
         let renderArr = []
-        if (init) {
-            renderArr = init.product_list.filter(e => (Number(e.cate_id) === Number(cate_id) || Number(cate_id) === 1));
+        if (cate_id || (init && Object.keys(init)[0])) {
+            if (init) {
+                renderArr = init.product_list.filter(e => (e.cate_id == cate_id || cate_id == 1));
+            } else {
+                renderArr = p_list.product_list.filter(e => (e.cate_id == cate_id || cate_id == 1));
+            }
+            setTab(cate_id);
+            if (renderArr) {
+                console.log(renderArr);
+
+                setFoodlist(renderArr)
+            }
         } else {
-            renderArr = p_list.product_list.filter(e => (Number(e.cate_id) === Number(cate_id) || Number(cate_id) === 1));
-        }
-        setTab(cate_id);
-        if (renderArr) {
-            setFoodlist(renderArr)
+            alert(error);
+            console.log(error);
         }
     }
 
@@ -52,11 +107,15 @@ function _Home() {
             {
                 (scan && p_list) ? (
                     <>
-                        <Header />
+                        <Header scanDesc={scan} />
                         <div className='tab'>
                             <ul>
+                                <li onClick={() => { tabFn(1) }} style={tab == 1 ? { fontSize: '1.2rem', fontWeight: '600' } : { fontSize: '1rem' }}>
+                                    全部分类
+                                        </li>
                                 {p_list.category_list && p_list.category_list.map((cate) => {
                                     return (
+                                        // eslint-disable-next-line
                                         <li onClick={() => { tabFn(cate.category_id) }} key={cate.category_id + cate.category_name} style={tab == cate.category_id ? { fontSize: '1.2rem', fontWeight: '600' } : { fontSize: '1rem' }}>
                                             {cate.category_name}
                                         </li>

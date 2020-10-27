@@ -21,7 +21,7 @@ export function request(config) {
         timeout,
         headers: {
             'Content-Type': 'application/json',
-            'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDM3ODc5NDMsInN1YiI6bnVsbCwibmJmIjoxNjAzNzgwNzQzLCJhdWQiOm51bGwsImlhdCI6MTYwMzc4MDc0MywianRpIjoiNWNhMWQ1YjgxMjFjYzJhODI5ODk2NTIyNTJiYjcxYTkiLCJpc3MiOiJFYXN5U3dvb2xlIiwic3RhdHVzIjoxLCJkYXRhIjoie1widXNlcl9pZFwiOlwiMzkyMjc2NTAxMDExMjM4OTEyXCJ9In0.8tbPBwyXcq4LK24w92M_azolFcFD-FPD0Z6bnJzv37Y'
+            'token': '888'
         }
     })
 
@@ -36,30 +36,26 @@ export function request(config) {
         /**
          * @addToken
          */
-        // if (res.params) {
-        //     if (!res.params.userSession) {
-        //         let userSession = sessionStorage.getItem('token')
-        //         if (userSession === " ") userSession = sessionStorage.getItem('token')
-        //         res.params.userSession = userSession;
-        //     }
-        // } else if (!res.params) {
-        //     res.params = { userSession: sessionStorage.getItem('token') }
-        // }
-
         return res
     }, function (error) {
+
         return Promise.reject(error)
     })
 
     // 此处封装一层捕捉错误
     return new Promise((resolve, reject) => {
         instance(config).then(res => {
-            resolve(res)
+            if (res.code !== '0') {
+                reject(res.msg)
+            } else {
+                resolve(res)
+            }
         }).catch(err => {
             /**
              * @err
              */
             if (err.response) {
+
 
             }
         })

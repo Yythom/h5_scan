@@ -9,9 +9,6 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 
 //布局组件
 import BaseLayout from './component/layout/BaseLayout'
-import Home from './pages/Home/Home'
-import ScanAccount from './pages/scanAccount/ScanAccount'
-import Table from './pages/table/Table'
 
 import { useEffect } from 'react'
 import VConsole from 'vconsole';
@@ -34,7 +31,7 @@ function _App(props) {
 
     useEffect(() => {
         if (!IsPC()) {
-            // new VConsole()
+            new VConsole()
             // console.clear()
         }
     }, [])

@@ -21,6 +21,7 @@ function Input(props) {
 
     useEffect(() => {
         foodNum(food_item)
+        // eslint-disable-next-line
     }, [props.cartSummary?.num])
 
     const foodNum = (food) => {
@@ -48,7 +49,7 @@ function Input(props) {
                         if (el.product_id === food.product_id) {
                             flag = true;
                             if (el.number) {
-                                console.log(el.product_name, el.number, '数量');
+                                // console.log(el.product_name, el.number, '数量');
                                 setNum(el.number)
                             } else {
                                 setNum(0)

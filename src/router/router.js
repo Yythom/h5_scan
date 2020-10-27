@@ -1,7 +1,7 @@
 // import icon from '../assets/icon/icon'
 
 import Home from '../pages/Home/Home'
-import ScanAccount from '../pages/scanAccount/ScanAccount'
+// import ScanAccount from '../pages/scanAccount/ScanAccount'
 import Table from '../pages/table/Table'
 
 let router = () => {
