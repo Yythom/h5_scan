@@ -41,9 +41,6 @@ function _App(props) {
             <Router>
                 <Switch>
                     <Route path='/' component={BaseLayout} ></Route>
-                    {/* <Route path='/home' exact component={Home} ></Route>
-                    <Route path='/table' exact component={Table} ></Route>
-                    <Route path='/scanAccount' exact component={ScanAccount} ></Route> */}
 
 
                     <Route path='/404' exact component={() => <h1>404</h1>}></Route>

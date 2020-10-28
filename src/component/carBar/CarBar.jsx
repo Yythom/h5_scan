@@ -7,6 +7,7 @@ import cartimg from '../../assets/icon/icon/cart.png'
 import Input from '../Cart_input'
 import { useHistory } from 'react-router-dom'
 import { makeOrder } from '../../api/api'
+import np from 'number-precision'
 function Carbar(props) {
     const [show, setShow] = useState(false);
     const history = useHistory();
@@ -85,7 +86,7 @@ function Carbar(props) {
                                         //             : null
                                         //     )
                                         //     : 
-                                        <p className='new'>¥{e.sell_price}</p>
+                                        <p className='new'>¥{np.times(e.sell_price, e.number)}</p>
                                     }
                                 </div>
                             </li>

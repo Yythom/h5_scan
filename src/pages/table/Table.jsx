@@ -6,11 +6,11 @@ import Header from '../../component/header/header'
 import { useHistory } from 'react-router-dom'
 import { getOrderDetailWithTableID } from '../../api/api'
 import np from 'number-precision'
+import loadingImg from '../../assets/images/loading.gif'
 import './table.scss'
 function Table(props) {
-    // const [table_id, setTable_id] = useState('');
+    const [loading, setLoading] = useState(true);
     const [order, setOrder] = useState('');
-
     const [noPay, setNoPay] = useState([]); // 待支付
     // const [donePay, setDonePay] = useState([]); //成功
     // const [cancelPay, setCancelNopay] = useState([]); // 取消
@@ -27,8 +27,14 @@ function Table(props) {
         //     newArr.push(el)
         // })
     }
+    function hideLoading(status) {
+        setTimeout(() => {
+            setLoading(status)
+        }, 400);
+    }
 
     function init() {
+        hideLoading(true);
         if (localStorage.getItem('table_id')) {
             // setTable_id(localStorage.getItem('table_id'));
             getOrderDetailWithTableID(localStorage.getItem('table_id')).then(res => {
@@ -80,8 +86,9 @@ function Table(props) {
             })
         } else {
             alert('table——Id不存在');
-            history.push('/home')
+            history.push('/qrcode')
         }
+        hideLoading(false);
     }
 
     function totalCount(noOrder, type) {
@@ -149,25 +156,30 @@ function Table(props) {
     }, [])
     return (
         <div className="table_wrap">
-            <Header isAddProduct={true} />
-            {
-                order && <>
-                    {noPay && <div className="bar">
-                        {/* <h1>{table_id}</h1> */}
-                        <p>
-                            <span>未支付总计：</span>
-                            <span>{totalCount(noPay, 'count')}件</span>
-                            <span>¥{totalCount(noPay)}</span>
-                        </p>
-                    </div>}
-                    <div className="order_wrap">
-                        {/*  1 取消 2 待支付 3 成功 4 失败 5 退款 */}
-                        <ul className="order_ul">
-                            {renderOrder()}
-                        </ul>
-                    </div>
-                </>
-            }
+            {loading && <div className='loading animate__fadeIn animate__animated' >
+                <img src={loadingImg} alt="" />
+                <h1>loading......</h1>
+            </div>}
+            {!loading && <>
+                <Header isAddProduct={true} />
+                {
+                    order && <>
+                        {noPay && <div className="bar">
+                            {/* <h1>{table_id}</h1> */}
+                            <p>
+                                <span>未支付总计：</span>
+                                <span>{totalCount(noPay, 'count')}件</span>
+                                <span>¥{totalCount(noPay)}</span>
+                            </p>
+                        </div>}
+                        <div className="order_wrap animate__fadeIn animate__animated">
+                            {/*  1 取消 2 待支付 3 成功 4 失败 5 退款 */}
+                            <ul className="order_ul">
+                                {renderOrder()}
+                            </ul>
+                        </div>
+                    </>
+                }</>}
         </div>
     )
 }

@@ -7,7 +7,7 @@ import Table from '../pages/table/Table'
 let router = () => {
     return {
         home: {
-            url: '/home',
+            url: '/qrcode',
             // icon: icon.Home,
             // activeIcon: icon.Active.Home,
             desc: '主页',

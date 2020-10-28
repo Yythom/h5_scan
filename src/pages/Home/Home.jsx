@@ -6,17 +6,27 @@ import { getDetailByShortTable, getList } from '../../api/api';
 import Carbar from '../../component/carBar/CarBar';
 import Header from '../../component/header/header';
 import Food from './child/food';
-import './home.scss';
 import { useHistory } from 'react-router-dom';
+import loadingImg from '../../assets/images/loading.gif'
+import './home.scss';
+
 
 function _Home() {
     const [scan, setScan] = useState('');
     const [p_list, setPlist] = useState('');
     const [food_list, setFoodlist] = useState([]);
     const [tab, setTab] = useState(0);
+    const [loading, setLoading] = useState(true);
     const history = useHistory();
 
+    function hideLoading(status) {
+        setTimeout(() => {
+            setLoading(status)
+        }, 400);
+    }
+
     async function req(s) {
+        hideLoading(true)
         let scanRes = await getDetailByShortTable(s); // 桌码短号获取详情
         if (scanRes.code === '0') {
             localStorage.setItem('shortTable', JSON.stringify(scanRes.result))
@@ -25,7 +35,9 @@ function _Home() {
             if (listRes.code === '0') {
                 localStorage.setItem('pList', JSON.stringify(listRes.result))
                 setPlist(listRes.result);
-                tabFn(1, listRes.result);
+                tabFn(0, listRes.result);
+                hideLoading(false)
+                console.log('加菜刷新');
                 return
             }
         }
@@ -33,12 +45,11 @@ function _Home() {
 
 
     async function initFn() {
+        hideLoading(true)
         let qr = (history.location.search.indexOf('s=') !== -1 && history.location.search.indexOf('t=') !== -1);
-        if (localStorage.getItem('again')) {
+        if (localStorage.getItem('again') && !qr) {
             let s = localStorage.getItem('s');
             req(s);
-            console.log('加菜刷新');
-
         } else if (qr) {
             let err = '';
             try {
@@ -53,7 +64,9 @@ function _Home() {
                     if (listRes.code === '0') {
                         localStorage.setItem('pList', JSON.stringify(listRes.result))
                         setPlist(listRes.result);
-                        tabFn(1, listRes.result);
+                        tabFn(0, listRes.result);
+
+                        hideLoading(false)
                         console.log('二维码读取');
                         return
                     }
@@ -68,8 +81,10 @@ function _Home() {
                 setPlist(JSON.parse(localStorage.getItem('pList')));
                 tabFn(1, JSON.parse(localStorage.getItem('pList')));
                 setScan(JSON.parse(localStorage.getItem('shortTable')));
+
+                hideLoading(false)
+                console.log('本地读取');
             }
-            console.log('本地读取');
         }
 
     }
@@ -80,7 +95,6 @@ function _Home() {
     }, [])
 
     const tabFn = (cate_id, init, error) => {
-
         // console.log(cate_id, init);
         let renderArr = []
         if ((cate_id || cate_id === 0) || (init && Object.keys(init)[0])) {
@@ -105,9 +119,13 @@ function _Home() {
 
 
     return (
-        <div className='home_wrap'>
+        <div className='home_wrap ' >
+            {loading && <div className='loading animate__fadeIn animate__animated'>
+                <img src={loadingImg} alt="" />
+                <h1>loading......</h1>
+            </div>}
             {
-                (scan && p_list) ? (
+                (scan && p_list && !loading) ? (
                     <>
                         <Header scanDesc={scan} />
                         <div className='tab'>
@@ -125,7 +143,7 @@ function _Home() {
                                 })}
                             </ul>
                         </div>
-                        <div className='food_wrap'>
+                        <div className='food_wrap animate__fadeIn animate__animated'>
                             {
                                 food_list && food_list.map((food_item) => {
                                     return (
