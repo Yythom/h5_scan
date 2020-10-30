@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { mapStateToProps, mapDispatchToProps } from '../../redux/actionCreator'
 import { connect } from 'react-redux'
-import Header from '../../component/header/header'
-
 import { useHistory } from 'react-router-dom'
 import { getOrderDetailWithTableID } from '../../api/api'
 import np from 'number-precision'
@@ -12,10 +10,6 @@ function Table(props) {
     const [loading, setLoading] = useState(true);
     const [order, setOrder] = useState('');
     const [noPay, setNoPay] = useState([]); // 待支付
-    // const [donePay, setDonePay] = useState([]); //成功
-    // const [cancelPay, setCancelNopay] = useState([]); // 取消
-    // const [failPay, setFailNoPay] = useState([]); // 失败
-    // const [quitPay, setQuitNoPay] = useState([]); // 退款
     const [renderData, setData] = useState({})
     // 1 取消 2 待支付 3 成功 4 失败 5 退款
     // is_business 
@@ -41,16 +35,7 @@ function Table(props) {
                 if (res.code === '0') {
                     console.log(res, 'table _desc');
                     let noArr = []; // 待支付
-                    let doneArr = []; // 完成
-                    let cancelArr = []; // 取消
-                    let failArr = []; // 失败
-                    let quitArr = []; //退款
                     let renderData = {}
-                    // let noP = []; // 待支付
-                    // let doneP = []; // 完成
-                    // let cancelP = []; // 取消
-                    // let failP = []; // 失败
-                    // let quitP = []; //退款
 
                     res.result[0] && res.result.forEach((e) => {
                         renderData[e.order.order_id] = {
@@ -58,28 +43,12 @@ function Table(props) {
                             status: e.order.status,
                             order: e.order
                         };
-                        if (e.order.status === 1) {
-                            pushArr(e, cancelArr)
-                        }
                         if (e.order.status === 2) {
                             pushArr(e, noArr)
-                        }
-                        if (e.order.status === 3) {
-                            pushArr(e, doneArr)
-                        }
-                        if (e.order.status === 4) {
-                            pushArr(e, failArr)
-                        }
-                        if (e.order.status === 5) {
-                            pushArr(e, quitArr)
                         }
                     })
 
                     setNoPay(noArr);
-                    // setDonePay(doneArr);
-                    // setFailNoPay(failArr);
-                    // setCancelNopay(cancelArr);
-                    // setQuitNoPay(quitArr);
                     setData(renderData)
                 }
                 setOrder(res.result);
@@ -91,6 +60,11 @@ function Table(props) {
         hideLoading(false);
     }
 
+    /**
+     * 未支付统计函数 no pay order
+     * @param {未支付订单数组} noOrder 
+     * @param {渲染类型 ( 价格&&数量 )} type 
+     */
     function totalCount(noOrder, type) {
         let totalCount = 0;
         let totalPrice = 0;
@@ -105,11 +79,11 @@ function Table(props) {
         }
     }
 
-    function renderOrder(type) { // 渲染函数
+    function renderOrder() { // 渲染函数
         if (Object.values(renderData)[0]) {
             // 1 取消 2 待支付 3 成功 4 失败 5 退款
             return Object.values(renderData).map((e) => {
-                let type = e.status
+                let type = e.status; // 订单状态类型
                 return (
                     <li key={e.order.order_id} className='p_item'>
                         <div className='p_title' >
@@ -161,7 +135,7 @@ function Table(props) {
                 <h1>loading......</h1>
             </div>}
             {!loading && <>
-                <Header isAddProduct={true} />
+                {/* <Header isAddProduct={true} /> */}
                 {
                     order && <>
                         {noPay && <div className="bar">

@@ -11,7 +11,8 @@ import np from 'number-precision'
 function Carbar(props) {
     const [show, setShow] = useState(false);
     const history = useHistory();
-    let { shop_id, cart, cartSummary, profit_name } = props;
+    let { cart, cartSummary } = props;
+    let shop_id = props.scan.shop_id;
     // shop_id, list, table_id = '', remark = '', order_id = []
 
     function list() {
@@ -70,7 +71,7 @@ function Carbar(props) {
                                     </div>
                                     <div className='e_desc'>
                                         <p>{e.product_name}</p>
-                                        <div><Input food_item={e} shopid={shop_id} profit_name={profit_name} /></div>
+                                        <div><Input food_item={e} shopid={shop_id} profit_name={props.scan.profit_name} /></div>
                                     </div>
                                 </div>
                                 <div className='e_price'>

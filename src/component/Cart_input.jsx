@@ -12,7 +12,7 @@ function Input(props) {
 
 
     function cartFn(food, shop_id, current) {
-        if (num === 0 && current === 'del') {
+        if (num === 0 && current === 'del') { // 如果数量为0 并且执行减操作的时候 不执行
             return
         }
         addCart(food, shop_id, current);
@@ -22,7 +22,7 @@ function Input(props) {
     useEffect(() => {
         foodNum(food_item)
         // eslint-disable-next-line
-    }, [props.cartSummary?.num])
+    }, [props.cartSummary?.num]) // 同步更新cartBar
 
     const foodNum = (food) => {
         let flag = false;
@@ -40,16 +40,15 @@ function Input(props) {
             if (Object.keys(props.cart)[0]) {
                 Object.values(props.cart)[0].list.forEach(e => {
                     e.product.forEach(el => {
-                        allNumber += el.number;
-                        oldPrice += np.times(el.number, el.sell_price);
-                        productList.push(el);
-                        if (profit_name && el.is_member === 1) {
+                        allNumber += el.number; // 购物车总数量
+                        oldPrice += np.times(el.number, el.sell_price); // 购物车总价格
+                        productList.push(el); // 购物车商品列表
+                        if (profit_name && el.is_member === 1) { // 购物车总会员价
                             memberPrice += np.times(el.number, el.member_price);
                         }
                         if (el.product_id === food.product_id) {
                             flag = true;
-                            if (el.number) {
-                                // console.log(el.product_name, el.number, '数量');
+                            if (el.number) { // 当前商品的数量
                                 setNum(el.number)
                             } else {
                                 setNum(0)
@@ -63,13 +62,13 @@ function Input(props) {
             if (!flag) { // 如果找不到该商品 默认0
                 setNum(0)
             }
+            // 执行清空会默认复制 allCartComputer
             allCartComputer.num = allNumber;
             allCartComputer.memberPrice = memberPrice;
             allCartComputer.oldPrice = oldPrice;
             allCartComputer.productList = productList;
             props.setAllNum({ ...allCartComputer });
         }
-
     }
 
     return (

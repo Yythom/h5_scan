@@ -6,6 +6,7 @@ export const mapStateToProps = (state, ownProps) => {
         tabStatus: state.tabStatus,//tab路由状态
         cart: state.cart,
         cartSummary: state.cartSummary,
+        scan: state.scan
     }
 }
 
@@ -23,6 +24,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
         clearCart: () => {
             localStorage.removeItem('cart');
             dispatch({ type: 'CLEAR' })
+        },
+        setScan: (shopDesc) => {
+            dispatch({ type: 'SCAN', shopDesc })
         }
     }
 }

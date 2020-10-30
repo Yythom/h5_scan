@@ -4,98 +4,97 @@ import { connect } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getDetailByShortTable, getList } from '../../api/api';
 import Carbar from '../../component/carBar/CarBar';
-import Header from '../../component/header/header';
 import Food from './child/food';
 import { useHistory } from 'react-router-dom';
 import loadingImg from '../../assets/images/loading.gif'
 import './home.scss';
 
 
-function _Home() {
-    const [scan, setScan] = useState('');
+function _Home(props) {
     const [p_list, setPlist] = useState('');
     const [food_list, setFoodlist] = useState([]);
     const [tab, setTab] = useState(0);
     const [loading, setLoading] = useState(true);
     const history = useHistory();
 
-    function hideLoading(status) {
+    /**
+     * @param {loding状态}} status 
+     */
+    function isLoadingFn(status) {
         setTimeout(() => {
-            setLoading(status)
+            setLoading(status);
         }, 400);
     }
 
-    async function req(s) {
-        hideLoading(true)
-        let scanRes = await getDetailByShortTable(s); // 桌码短号获取详情
-        if (scanRes.code === '0') {
-            localStorage.setItem('shortTable', JSON.stringify(scanRes.result))
-            setScan(scanRes.result);
-            let listRes = await getList(scanRes.result.shop_id)
-            if (listRes.code === '0') {
-                localStorage.setItem('pList', JSON.stringify(listRes.result))
-                setPlist(listRes.result);
-                tabFn(0, listRes.result);
-                hideLoading(false)
-                console.log('加菜刷新');
-                return
+    /**
+     * @param {桌码短号} s 
+     * @param {成功信息} type 
+     */
+    async function req(s, type) { // 请求短号pb
+        isLoadingFn(true)
+        try {
+            const scanRes = await getDetailByShortTable(s); // 桌码短号获取详情
+            if (scanRes.code === '0') {
+                localStorage.setItem('shortTable', JSON.stringify(scanRes.result))
+                props.setScan(scanRes.result);
+                const listRes = await getList(scanRes.result.shop_id);
+                if (listRes.code === '0') {
+                    localStorage.setItem('pList', JSON.stringify(listRes.result))
+                    setPlist(listRes.result);
+                    tabFn(0, listRes.result);
+                    isLoadingFn(false);
+                    console.log(type);
+                    return
+                }
             }
+        } catch (error) {
+            tabFn(1, {}, error);
         }
     }
-
 
     async function initFn() {
-        hideLoading(true)
-        let qr = (history.location.search.indexOf('s=') !== -1 && history.location.search.indexOf('t=') !== -1);
+        isLoadingFn(true)
+        const qr = (history.location.search.indexOf('s=') !== -1 && history.location.search.indexOf('t=') !== -1);
         if (localStorage.getItem('again') && !qr) {
-            let s = localStorage.getItem('s');
-            req(s);
+            const s = localStorage.getItem('s');
+            req(s, '加菜刷新');
+            setTimeout(() => {
+                localStorage.removeItem('again');
+            }, 600);
         } else if (qr) {
-            let err = '';
-            try {
-                let params = `${history.location.search}`.replace('?', '');
-                // let t = `${params}`.split('&')[1].split('=')[1];
-                let s = `${`${params}`.split('&')[1]}`.split('=')[1]
-                let scanRes = await getDetailByShortTable(s); // 桌码短号获取详情
-                if (scanRes.code === '0') {
-                    localStorage.setItem('shortTable', JSON.stringify(scanRes.result))
-                    setScan(scanRes.result);
-                    let listRes = await getList(scanRes.result.shop_id)
-                    if (listRes.code === '0') {
-                        localStorage.setItem('pList', JSON.stringify(listRes.result))
-                        setPlist(listRes.result);
-                        tabFn(0, listRes.result);
-
-                        hideLoading(false)
-                        console.log('二维码读取');
-                        return
-                    }
-                }
-            } catch (error) {
-                err = error;
-                console.log(error);
-            }
-            tabFn(1, {}, err)
+            const params = `${history.location.search}`.replace('?', '');
+            const s = `${`${params}`.split('&')[1]}`.split('=')[1];
+            req(s, '二维码读取');
+            return
+        } else if (localStorage.getItem('shortTable') && localStorage.getItem('pList')) {
+            setPlist(JSON.parse(localStorage.getItem('pList')));
+            tabFn(0, JSON.parse(localStorage.getItem('pList')));
+            props.setScan(JSON.parse(localStorage.getItem('shortTable')));
+            console.log('本地读取');
+            isLoadingFn(false);
         } else {
-            if (localStorage.getItem('shortTable') && localStorage.getItem('pList')) {
-                setPlist(JSON.parse(localStorage.getItem('pList')));
-                tabFn(1, JSON.parse(localStorage.getItem('pList')));
-                setScan(JSON.parse(localStorage.getItem('shortTable')));
-
-                hideLoading(false)
-                console.log('本地读取');
-            }
+            alert('url不正确,桌码解析有误');
         }
-
     }
+
     useEffect(() => {
         initFn();
-        // getDetail().then(res => console.log(res)); // 商品详情
         // eslint-disable-next-line 
     }, [])
 
+
+    /**
+     * @param {分类id 全部时为0} cate_id 
+     * @param {厨师} init 
+     * @param {页面提示错误信息} error 
+     */
     const tabFn = (cate_id, init, error) => {
-        // console.log(cate_id, init);
+        if (error) {
+            alert(error);
+            console.log(error);
+            return;
+        }
+
         let renderArr = []
         if ((cate_id || cate_id === 0) || (init && Object.keys(init)[0])) {
             if (init) {
@@ -105,15 +104,10 @@ function _Home() {
                 renderArr = p_list.product_list.filter(e => (e.cate_id == cate_id || cate_id == 0));
                 setTab(cate_id);
             }
-
             if (renderArr) {
-                console.log(renderArr);
-
-                setFoodlist(renderArr)
+                console.log(renderArr, 'tab__Render'); // 根据tab过滤出来的渲染数据 Array[]
+                setFoodlist(renderArr);
             }
-        } else {
-            alert(error);
-            console.log(error);
         }
     }
 
@@ -122,12 +116,12 @@ function _Home() {
         <div className='home_wrap ' >
             {loading && <div className='loading animate__fadeIn animate__animated'>
                 <img src={loadingImg} alt="" />
-                <h1>loading......</h1>
+                <h2>loading.....</h2>
             </div>}
             {
-                (scan && p_list && !loading) ? (
+                (props.scan && p_list && !loading) ? (
                     <>
-                        <Header scanDesc={scan} />
+                        {/* <Header scanDesc={scan} /> */}
                         <div className='tab'>
                             <ul>
                                 <li onClick={() => { tabFn(0) }} style={tab == 0 ? { fontSize: '1.2rem', fontWeight: '600' } : { fontSize: '1rem' }}>
@@ -151,14 +145,15 @@ function _Home() {
                                             {/* {console.log(food_item)} */}
                                             <Food
                                                 food={food_item}
-                                                shop_id={scan.shop_id}
-                                                profit_name={scan.profit_name ? true : false} />
+                                                shop_id={props.scan.shop_id}
+                                                profit_name={props.scan.profit_name ? true : false}
+                                            />
                                         </div>
                                     )
                                 })
                             }
                         </div>
-                        <Carbar shop_id={scan.shop_id} profit_name={scan.profit_name ? true : false} />
+                        {props.scan && <Carbar />}
                     </>
                 ) : null
             }

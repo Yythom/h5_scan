@@ -11,7 +11,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import BaseLayout from './component/layout/BaseLayout'
 
 import { useEffect } from 'react'
-import VConsole from 'vconsole';
+// import VConsole from 'vconsole';
 
 function _App(props) {
     function IsPC() {
@@ -31,7 +31,7 @@ function _App(props) {
 
     useEffect(() => {
         if (!IsPC()) {
-            new VConsole()
+            // new VConsole()
             // console.clear()
         }
     }, [])

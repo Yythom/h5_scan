@@ -6,9 +6,9 @@ function Header(props) {
     const [scan, setScan] = useState('');
     const history = useHistory();
     useEffect(() => {
-        if (props.scanDesc) {
-            setScan(props.scanDesc);
-            localStorage.setItem('shop_desc', JSON.stringify(props.scanDesc))
+        if (props.scan) {
+            setScan(props.scan);
+            localStorage.setItem('shop_desc', JSON.stringify(props.scan))
         } else if (localStorage.getItem('shop_desc')) {
             setScan(JSON.parse(localStorage.getItem('shop_desc')));
         }

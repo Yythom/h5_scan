@@ -1,11 +1,12 @@
 let initState = {
     tabStatus: 1,
     cart: JSON.parse(localStorage.getItem('cart')) || {},
-    allCartComputer: {
-        num: null,
-        oldPrice: null,
-        memberPrice: null,
-        productList: []
+    cartSummary: {
+        num: 0,
+        oldPrice: 0,
+        memberPrice: 0,
+        productList: [],
+        type: 'clear'
     },
 }
 
@@ -25,6 +26,9 @@ export const reducer = (state = initState, action) => {
             return states;
         case 'SETNUM':
             states.cartSummary = action.allSummary;
+            return states;
+        case 'SCAN':
+            states.scan = action.shopDesc;
             return states;
         case 'CLEAR':
             states.cart = {};
