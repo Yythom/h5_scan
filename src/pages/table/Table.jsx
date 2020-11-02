@@ -126,34 +126,43 @@ function Table(props) {
 
     useEffect(() => {
         init();
+        if (!props.scan && localStorage.getItem('shortTable')) { // 防止header组件读取不到数据
+            props.setScan(JSON.parse(localStorage.getItem('shortTable')));
+        }
         // eslint-disable-next-line
     }, [])
     return (
         <div className="table_wrap">
             {loading && <div className='loading animate__fadeIn animate__animated' >
                 <img src={loadingImg} alt="" />
-                <h1>loading......</h1>
+                <h2>loading......</h2>
             </div>}
-            {!loading && <>
-                {/* <Header isAddProduct={true} /> */}
-                {
-                    order && <>
-                        {noPay && <div className="bar">
-                            {/* <h1>{table_id}</h1> */}
-                            <p>
-                                <span>未支付总计：</span>
-                                <span>{totalCount(noPay, 'count')}件</span>
-                                <span>¥{totalCount(noPay)}</span>
-                            </p>
-                        </div>}
-                        <div className="order_wrap animate__fadeIn animate__animated">
-                            {/*  1 取消 2 待支付 3 成功 4 失败 5 退款 */}
-                            <ul className="order_ul">
-                                {renderOrder()}
-                            </ul>
-                        </div>
-                    </>
-                }</>}
+            {
+                !loading
+                && <>
+                    {
+                        order
+                        && <>
+                            {
+                                noPay
+                                && <div className="bar">
+                                    <p>
+                                        <span>未支付总计：</span>
+                                        <span>{totalCount(noPay, 'count')}件</span>
+                                        <span>¥{totalCount(noPay)}</span>
+                                    </p>
+                                </div>
+                            }
+                            <div className="order_wrap animate__fadeIn animate__animated">
+                                {/*  1 取消 2 待支付 3 成功 4 失败 5 退款 */}
+                                <ul className="order_ul">
+                                    {renderOrder()}
+                                </ul>
+                            </div>
+                        </>
+                    }
+                </>
+            }
         </div>
     )
 }

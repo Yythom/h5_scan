@@ -1,7 +1,6 @@
 // import icon from '../assets/icon/icon'
 
 import Home from '../pages/Home/Home'
-// import ScanAccount from '../pages/scanAccount/ScanAccount'
 import Table from '../pages/table/Table'
 
 let router = () => {
@@ -13,13 +12,6 @@ let router = () => {
             desc: '主页',
             page: Home
         },
-        // scanAccount: {
-        //     url: '/scanAccount',
-        //     // icon: icon.Home,
-        //     // activeIcon: icon.Active.Home,
-        //     desc: '扫码收银台',
-        //     page: ScanAccount
-        // },
         table: {
             url: '/table',
             // icon: icon.Home,

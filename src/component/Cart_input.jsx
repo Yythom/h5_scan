@@ -45,6 +45,8 @@ function Input(props) {
                         productList.push(el); // 购物车商品列表
                         if (profit_name && el.is_member === 1) { // 购物车总会员价
                             memberPrice += np.times(el.number, el.member_price);
+                        } else {
+                            memberPrice += np.times(el.number, el.sell_price);
                         }
                         if (el.product_id === food.product_id) {
                             flag = true;

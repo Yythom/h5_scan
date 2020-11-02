@@ -1,11 +1,7 @@
-// eslint-disable-next-line
 import React from 'react';
-// eslint-disable-next-line
 import { Route, useHistory } from 'react-router-dom';
 import { mapStateToProps, mapDispatchToProps } from '../../redux/actionCreator'
 import { connect } from 'react-redux'
-// eslint-disable-next-line
-// import TabBar from '../../component/TabBar'
 import Header from '../header/header'
 import './BaseLayout.scss'
 import 'animate.css'
@@ -16,7 +12,7 @@ function _Layout(props) {
     return (
         <div className='layout animate__fadeIn animate__animated'>
             {props.scan && <Header scan={props.scan} isAddProduct={history.location.pathname.indexOf('qrcode') === -1} />}
-            { // 路由tab栏
+            { // 路由组件
                 Object.values(router).map(e => {
                     return (
                         <Route path={e.url} exact={e.desc !== '主页'} component={e.page} key={e.url} />

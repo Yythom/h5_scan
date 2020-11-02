@@ -3,8 +3,11 @@ import { mapStateToProps, mapDispatchToProps } from '../../../redux/actionCreato
 import { connect } from 'react-redux'
 import InputCart from '../../../component/Cart_input'
 function Food(props) {
-    const { food, profit_name, shop_id } = props
-
+    const {
+        food, // 单项商品
+        profit_name, // 是否会员
+        shop_id,
+    } = props
 
     return (
         <div className='food_item'>

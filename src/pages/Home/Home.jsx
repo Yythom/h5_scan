@@ -52,6 +52,7 @@ function _Home(props) {
         }
     }
 
+    // 初始化所有数据
     async function initFn() {
         isLoadingFn(true)
         const qr = (history.location.search.indexOf('s=') !== -1 && history.location.search.indexOf('t=') !== -1);
@@ -85,7 +86,7 @@ function _Home(props) {
 
     /**
      * @param {分类id 全部时为0} cate_id 
-     * @param {厨师} init 
+     * @param {初始化res.result} init 
      * @param {页面提示错误信息} error 
      */
     const tabFn = (cate_id, init, error) => {
