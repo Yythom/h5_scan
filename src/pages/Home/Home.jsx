@@ -18,7 +18,7 @@ function _Home(props) {
     const history = useHistory();
 
     /**
-     * @param {loding状态}} status 
+     * @param {loding状态} status 
      */
     function isLoadingFn(status) {
         setTimeout(() => {
@@ -122,7 +122,6 @@ function _Home(props) {
             {
                 (props.scan && p_list && !loading) ? (
                     <>
-                        {/* <Header scanDesc={scan} /> */}
                         <div className='tab'>
                             <ul>
                                 <li onClick={() => { tabFn(0) }} style={tab == 0 ? { fontSize: '1.2rem', fontWeight: '600' } : { fontSize: '1rem' }}>
@@ -130,7 +129,6 @@ function _Home(props) {
                                         </li>
                                 {p_list.category_list && p_list.category_list.map((cate) => {
                                     return (
-                                        // eslint-disable-next-line
                                         <li onClick={() => { tabFn(cate.category_id) }} key={cate.category_id + cate.category_name} style={tab == cate.category_id ? { fontSize: '1.2rem', fontWeight: '600' } : { fontSize: '1rem' }}>
                                             {cate.category_name}
                                         </li>
@@ -143,7 +141,6 @@ function _Home(props) {
                                 food_list && food_list.map((food_item) => {
                                     return (
                                         <div className='food' key={food_item.product_id}>
-                                            {/* {console.log(food_item)} */}
                                             <Food
                                                 food={food_item}
                                                 shop_id={props.scan.shop_id}
@@ -158,7 +155,6 @@ function _Home(props) {
                     </>
                 ) : null
             }
-
         </div>
     )
 }

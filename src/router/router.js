@@ -1,6 +1,7 @@
 // import icon from '../assets/icon/icon'
 
 import Home from '../pages/Home/Home'
+// import Test from '../pages/Test/Test'
 import Table from '../pages/table/Table'
 
 let router = () => {
@@ -12,6 +13,13 @@ let router = () => {
             desc: '主页',
             page: Home
         },
+        // test: {
+        //     url: '/test',
+        //     // icon: icon.Home,
+        //     // activeIcon: icon.Active.Home,
+        //     desc: 'test',
+        //     page: Test
+        // },
         table: {
             url: '/table',
             // icon: icon.Home,

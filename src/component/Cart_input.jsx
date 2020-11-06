@@ -10,7 +10,6 @@ function Input(props) {
     const [num, setNum] = useState(0)
     let { food_item, addCart, shopid, profit_name } = props;
 
-
     function cartFn(food, shop_id, current) {
         if (num === 0 && current === 'del') { // 如果数量为0 并且执行减操作的时候 不执行
             return

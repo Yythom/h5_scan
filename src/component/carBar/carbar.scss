@@ -19,6 +19,7 @@
         bottom: 100%;
         opacity: 1;
         // display: none;
+        z-index: -1;
         box-sizing: border-box;
 
         .title {
@@ -29,11 +30,14 @@
             align-items: center;
             color: #000;
             padding: 0 1rem;
+            border-bottom: 1px rgba(226, 226, 226, 0.384) solid;
         }
 
         .produce_ul {
             width: 100%;
-            padding: 0 1rem;
+            overflow: scroll;
+            max-height: 20rem;
+            padding: 0 1rem 6rem 1rem;
             box-sizing: border-box;
 
             li {
@@ -41,6 +45,10 @@
                 justify-content: space-between;
                 margin-bottom: 0.8rem;
                 height: 3.5rem;
+
+                &:nth-of-type(1) {
+                    margin-top: 1rem;
+                }
 
                 .e_img {
                     width: 3.5rem;
@@ -130,6 +138,7 @@
         display: flex;
         height: 100%;
         align-items: center;
+        background-color: #fff;
 
         .new {
             height: 2rem;
