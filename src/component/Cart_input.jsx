@@ -37,8 +37,8 @@ function Input(props) {
         };
         if (props.cart) {
             if (Object.keys(props.cart)[0]) {
-                Object.values(props.cart)[0].list.forEach(e => {
-                    e.product.forEach(el => {
+                Object.values(props.cart)[0].list.forEach(e => { // 购物车中的分类列表
+                    e.product.forEach(el => { // 每个分类对象下的菜品列表
                         allNumber += el.number; // 购物车总数量
                         oldPrice += np.times(el.number, el.sell_price); // 购物车总价格
                         productList.push(el); // 购物车商品列表
@@ -64,8 +64,8 @@ function Input(props) {
                 setNum(0)
             }
             // 执行清空会默认复制 allCartComputer
-            allCartComputer.num = allNumber;
-            allCartComputer.memberPrice = memberPrice;
+            allCartComputer.num = allNumber; // 菜品总数量
+            allCartComputer.memberPrice = memberPrice; // 会员的价
             allCartComputer.oldPrice = oldPrice;
             allCartComputer.productList = productList;
             props.setAllNum({ ...allCartComputer });

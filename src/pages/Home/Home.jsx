@@ -55,19 +55,19 @@ function _Home(props) {
     // 初始化所有数据
     async function initFn() {
         isLoadingFn(true)
-        const qr = (history.location.search.indexOf('s=') !== -1 && history.location.search.indexOf('t=') !== -1);
+        const qr = (history.location.search.indexOf('s=') !== -1 && history.location.search.indexOf('t=') !== -1); // 判断是否二维码进入
         if (localStorage.getItem('again') && !qr) {
             const s = localStorage.getItem('s');
             req(s, '加菜刷新');
             setTimeout(() => {
-                localStorage.removeItem('again');
+                localStorage.removeItem('again'); // 加菜刷新的读取判断
             }, 600);
         } else if (qr) {
             const params = `${history.location.search}`.replace('?', '');
-            const s = `${`${params}`.split('&')[1]}`.split('=')[1];
+            const s = `${`${params}`.split('&')[1]}`.split('=')[1]; // 桌码短号
             req(s, '二维码读取');
             return
-        } else if (localStorage.getItem('shortTable') && localStorage.getItem('pList')) {
+        } else if (localStorage.getItem('shortTable') && localStorage.getItem('pList')) { // 本地刷新的时候
             setPlist(JSON.parse(localStorage.getItem('pList')));
             tabFn(0, JSON.parse(localStorage.getItem('pList')));
             props.setScan(JSON.parse(localStorage.getItem('shortTable')));

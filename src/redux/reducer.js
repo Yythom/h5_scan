@@ -6,7 +6,6 @@ let initState = {
         oldPrice: 0,
         memberPrice: 0,
         productList: [],
-        type: 'clear'
     },
 }
 
@@ -47,18 +46,18 @@ function cart(food, shop_id, current, cart, againNumber) {
         item.number = 1; // 初始化菜品数量
     }
     let setFlag = false; // 删除店铺的开关
-    let list = []; // list
-    if (cart[shop_id]) { // 如果存在店铺list 则赋值
+    let list = []; //  如果不存在店铺list 初始化空list
+    if (cart[shop_id]) { // 如果存在店铺list 则赋值 在原有的list做操作
         let tempList1 = [...cart[shop_id].list];
         list = tempList1;
     }
 
-    // 创建分类
-    if (!list[0]) {
+    // 第一层分类操作
+    if (!list[0]) { // 如果分类为空 直接创建该分类
         list.push({ category_id: item.cate_id, product: [] });
     } else {
-        let flag = false;
-        list.forEach((el) => { // 已有该菜品对应的分类对象
+        let flag = false; // 获取该商品分类对象是否已经存在 ⬇
+        list.forEach((el) => {
             if (el.category_id === item.cate_id) {
                 flag = true;
             }
@@ -72,20 +71,19 @@ function cart(food, shop_id, current, cart, againNumber) {
     // 将商品插入对应分类
     list.forEach((el, index) => { // el ->>> 每个分类
         let e = item;
-        if (item.cate_id === el.category_id) { // 找到->当前商品分类对象
+        if (item.cate_id === el.category_id) { // 找到--->当前商品分类对象 商品id===分类id
             if (!el.product[0]) { // 如果该分类没有商品  直接插入 不走判断
                 list[index].product.push(e);
             } else { // 购物车已有商品  根据 传入current执行加减
-                let flag = false; // 判断是否含有该商品 true->存在 false->不存在
+                let flag = false; // 判断是否含有该商品 true->存在 false->不存在 存在则根据currentType来执行加减操作
                 el.product.forEach((el2, i) => { // 遍历该分类下的商品
-                    if (el2.product_id === item.product_id) { // 如果当前存在的情况
-                        flag = true;
+                    if (el2.product_id === item.product_id) {
+                        flag = true;            // 如果该分类对象 存在该商品根据currentType来执行加减操作
                         if (current === 'add' && !againNumber) {
                             list[index].product[i].number += 1;
                         } else if (current === 'del') {
                             list[index].product[i].number -= 1;
                             if (list[index].product[i].number === 0) { // 如果该商品数量为0  删除商品
-                                console.log(list[index].product[i].number);
                                 list[index].product[i].number = 0
                                 list[index].product.splice(i, 1);
                                 if (!el.product[0]) { // 如果该分类商品为空 删除分类
@@ -102,7 +100,7 @@ function cart(food, shop_id, current, cart, againNumber) {
                         // }
                     }
                 });
-                if (!flag) { // 如果当前分类 不存在商品 push一个初始化商品
+                if (!flag) { // 如果当前分类不存在该商品 push一个数量为1的初始化商品
                     list[index].product.push(e);
                 }
             }

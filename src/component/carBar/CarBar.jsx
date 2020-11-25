@@ -14,6 +14,33 @@ function Carbar(props) {
     let { cart, cartSummary } = props;
     let shop_id = props.scan.shop_id;
     // shop_id, list, table_id = '', remark = '', order_id = []
+    // 优惠券插入函数
+    // function cateCop(list) {
+    //     if (Object.keys(checkCoupon)[0]) {
+    //       let num = 0;
+    //       list.forEach((e, i) => {
+    //         if (checkCoupon.scope !== 1) {
+    //           if (checkCoupon.scope === 3) { // 适用分类
+    //             if (checkCoupon.category_id[0]) {
+    //               let isCop = checkCoupon.category_id.find((id) => id === e.category_id);
+    //               if (isCop && num < 1) {
+    //                 num++;
+    //                 list[i].user_coupon_id = checkCoupon.user_coupon_id;
+    //               }
+    //             }
+    //           } else if (checkCoupon.scope === 2) { // 不适用分类
+    //             if (checkCoupon.category_id[0]) {
+    //               let isCop = checkCoupon.category_id.find((id) => id === e.category_id);
+    //               if (!isCop && num < 1) {
+    //                 num++;
+    //                 list[i].user_coupon_id = checkCoupon.user_coupon_id;
+    //               }
+    //             }
+    //           }
+    //         }
+    //       });
+    //     }
+    //   }
 
     function list() {
         let copy = JSON.parse(JSON.stringify(cart));

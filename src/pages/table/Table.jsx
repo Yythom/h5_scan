@@ -88,7 +88,7 @@ function Table(props) {
                     <li key={e.order.order_id} className='p_item'>
                         <div className='p_title' >
                             <span>
-                                {type === 1 ? '已取消订单' : null}   {type === 2 ? '未结算订单' : null}   {type === 1 ? '已完成订单' : null}   {type === 1 ? '支付失败' : null}   {type === 1 ? '已退款订单' : null}
+                                {type === 1 ? '已取消订单' : null}   {type === 2 ? '未结算订单' : null}   {type === 3 ? '已完成订单' : null}   {type === 4 ? '支付失败' : null}   {type === 5 ? '已退款订单' : null}
                             </span>
                             <p>{e.order.create_at}</p>
                         </div>
